@@ -1,0 +1,9 @@
+{
+    "name": "mybuilder/upload",
+    "license": "proprietary",
+    "description": "Upload project to dev server",
+    "config": {
+        "bin-dir": "bin"
+    },
+    "bin": ["bin/dev_upload"]
+}

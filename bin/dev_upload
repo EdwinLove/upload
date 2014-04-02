@@ -1,0 +1,40 @@
+
+#!/bin/bash
+
+if [ $# -lt 1 ]
+then
+  echo "Usage: `basename $0` folder_name [gimme]"
+  exit -1
+fi
+
+NAME=`whoami`
+
+LOCALSITES=/Users/$NAME/GitFolder
+SITESDIRECTORY=/home/$NAME/sites
+
+LOCALDIRECTORY=$LOCALSITES/$1/
+REMOTEDIRECTORY=$SITESDIRECTORY/$1
+
+REMOTESERVER=$NAME@$NAME.buildersite.co.uk
+
+if test ! -d $LOCALDIRECTORY
+then
+        echo -n "no such directory as "
+        echo $LOCALDIRECTORY
+        exit -1
+fi
+
+cd $LOCALDIRECTORY
+echo 'Copying ' + $LOCALDIRECTORY + ' to ' + $REMOTEDIRECTORY;
+if test -f ../config/rsync_exclude.txt
+then
+        rsync -azCv --force --delete --exclude-from '../config/rsync_exclude.txt' $LOCALDIRECTORY $REMOTESERVER:$REMOTEDIRECTORY
+else
+        rsync -azCv --force --delete $LOCALDIRECTORY $REMOTESERVER:$REMOTEDIRECTORY
+fi
+
+if [ "$2" == "gimme" ]
+then
+        ssh $REMOTESERVER /usr/local/bin/gimme $1
+fi
+

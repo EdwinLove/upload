@@ -1,0 +1,16 @@
+.git
+.gitignore
+.gitmodules
+.DS_Store
+.idea
+build-load-all-dev
+nbproject/*
+*.swp
+/app/*/app/cache/*
+/app/*/app/logs/*
+/app/*/web/uploads/*
+/app/*/web/wp-content/uploads/*
+/cache
+/cache/*
+/log
+/log/*
